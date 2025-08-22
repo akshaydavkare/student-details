@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  height: calc(100vh - 64px); /* minus toolbar height */
+}
+
+.sidebar {
+  width: 30%;
+  border-right: 1px solid #ccc;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+}
+
+mat-list-item.active {
+  background: #e0f7fa;
+  border-left: 4px solid #00796b;
+}

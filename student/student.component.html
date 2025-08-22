@@ -1,0 +1,51 @@
+<!-- students.component.html -->
+<div class="container">
+  <!-- Left: Classrooms -->
+  <div class="sidebar">
+    <h3>Classrooms</h3>
+    <ul>
+      <li
+        *ngFor="let classroom of classrooms"
+        (click)="selectClassroom(classroom)"
+        [class.active]="
+          selectedClassroom?.classroomId === classroom.classroomId
+        "
+      >
+        {{ classroom.className }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Right: Students -->
+  <div class="content">
+    <div *ngIf="selectedClassroom; else noClassroom">
+      <h3>Students of {{ selectedClassroom.className }}</h3>
+      <table border="1" width="100%">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Grade</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of selectedClassroom.students">
+            <td>{{ student.studentId }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.age }}</td>
+            <td>{{ student.grade }}</td>
+            <td>
+              <button (click)="showDetails(student)">Details</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #noClassroom>
+      <p>Please select a classroom</p>
+    </ng-template>
+  </div>
+</div>
