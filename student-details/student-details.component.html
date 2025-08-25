@@ -1,11 +1,22 @@
-<div class="popup">
-  <div class="popup-content">
-    <h2>Student Details</h2>
-    <p><strong>ID:</strong> {{ student?.studentId }}</p>
-    <p><strong>Name:</strong> {{ student?.name }}</p>
-    <p><strong>Age:</strong> {{ student?.age }}</p>
-    <p><strong>Grade:</strong> {{ student?.grade }}</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Student Details</mat-card-title>
+    <mat-card-subtitle
+      >{{ data.classroom.className }} -
+      {{ data.classroom.teacher }}</mat-card-subtitle
+    >
+  </mat-card-header>
 
-    <button (click)="closePopup()">Close</button>
-  </div>
-</div>
+  <mat-card-content>
+    <p><strong>ID:</strong> {{ data.student.studentId }}</p>
+    <p><strong>Name:</strong> {{ data.student.name }}</p>
+    <p><strong>Age:</strong> {{ data.student.age }}</p>
+    <p><strong>Grade:</strong> {{ data.student.grade }}</p>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-raised-button color="primary" (click)="closePopup()">
+      Close
+    </button>
+  </mat-card-actions>
+</mat-card>

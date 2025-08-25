@@ -2,19 +2,23 @@ import { Component, Input } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { StudentService } from '../services/student.service';
 import { StudentDetailsComponent } from '../student-details/student-details.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+
 
 
 @Component({
   selector: 'app-student',
-  imports: [SharedModule],
-  
+  standalone: true,
+  imports: [SharedModule, MatDialogModule, MatTableModule],
+
   templateUrl: './student.component.html',
-  styleUrl: './student.component.css'
+  styleUrls: ['./student.component.css']
 })
 export class StudentComponent {
   @Input() selectedClassroom: any;
   
- classrooms = [
+  classrooms = [
     {
       classroomId: 1,
       className: "Class 1A",
@@ -73,19 +77,19 @@ export class StudentComponent {
   ];
 
  
-  showPopup: boolean = false;
-  constructor(private studentService: StudentService) {}
+   
+  constructor(private studentService: StudentService,private dialog:MatDialog) {}
 
-  selectClassroom(classroom: any) {
+   selectClassroom(classroom: any) {
     this.selectedClassroom = classroom;
   }
 
-  showDetails(student: any) {
-   
-    this.studentService.setSelectedStudent(student);
-    this.showPopup = true;
+  showDetails(student: any, classroom: any) {
+     this.studentService.setSelectedStudent({ ...student, classroomName: classroom.className });
+    this.dialog.open(StudentDetailsComponent, {
+      width: '900px',
+      data: { student, classroom }
+    });
   }
-  closePopup() {
-    this.showPopup = false;
-  }
+
 }

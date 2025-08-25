@@ -1,0 +1,13 @@
+.classrooms {
+  margin-bottom: 20px;
+}
+
+mat-list-item.active {
+  background: #e0f7fa;
+  font-weight: bold;
+  border-left: 4px solid #0288d1;
+}
+
+.students {
+  margin-top: 20px;
+}

@@ -8,22 +8,22 @@ import { StudentComponent } from "../student/student.component";
 
 @Component({
   selector: 'app-root',
-  imports: [SharedModule, StudentDetailsComponent, StudentComponent],
+  imports: [SharedModule, StudentComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-   showPopup = false;
+  //  showPopup = false;
 
-  constructor(private studentService: StudentService) {
-    // Listen for student changes and toggle popup
-    this.studentService.selectedStudent$.subscribe(student => {
-      this.showPopup = !!student; // true if student selected
-    });
-  }
+  // constructor(private studentService: StudentService) {
+  //   // Listen for student changes and toggle popup
+  //   this.studentService.selectedStudent$.subscribe(student => {
+  //     this.showPopup = !!student; // true if student selected
+  //   });
+  // }
 
-  closePopup() {
-    this.studentService.clearSelectedStudent();
-    this.showPopup = false;
-  }
+  // closePopup() {
+  //   this.studentService.clearSelectedStudent();
+  //   this.showPopup = false;
+  // }
 }

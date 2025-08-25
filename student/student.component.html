@@ -1,51 +1,55 @@
-<!-- students.component.html -->
-<div class="container">
-  <!-- Left: Classrooms -->
-  <div class="sidebar">
-    <h3>Classrooms</h3>
-    <ul>
-      <li
-        *ngFor="let classroom of classrooms"
-        (click)="selectClassroom(classroom)"
-        [class.active]="
-          selectedClassroom?.classroomId === classroom.classroomId
-        "
-      >
-        {{ classroom.className }}
-      </li>
-    </ul>
-  </div>
+<div class="classrooms">
+  <mat-list>
+    <h3 mat-subheader>Classrooms</h3>
+    <mat-list-item
+      *ngFor="let classroom of classrooms"
+      (click)="selectClassroom(classroom)"
+      [class.active]="selectedClassroom?.classroomId === classroom.classroomId"
+    >
+      {{ classroom.className }} — {{ classroom.teacher }} ({{
+        classroom.subject
+      }})
+    </mat-list-item>
+  </mat-list>
+</div>
 
-  <!-- Right: Students -->
-  <div class="content">
-    <div *ngIf="selectedClassroom; else noClassroom">
-      <h3>Students of {{ selectedClassroom.className }}</h3>
-      <table border="1" width="100%">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Grade</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let student of selectedClassroom.students">
-            <td>{{ student.studentId }}</td>
-            <td>{{ student.name }}</td>
-            <td>{{ student.age }}</td>
-            <td>{{ student.grade }}</td>
-            <td>
-              <button (click)="showDetails(student)">Details</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<div *ngIf="selectedClassroom" class="students">
+  <h2>{{ selectedClassroom.className }} - Students</h2>
 
-    <ng-template #noClassroom>
-      <p>Please select a classroom</p>
-    </ng-template>
-  </div>
+  <mat-table [dataSource]="selectedClassroom.students" class="mat-elevation-z2">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let student">{{ student.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+      <mat-header-cell *matHeaderCellDef>Age</mat-header-cell>
+      <mat-cell *matCellDef="let student">{{ student.age }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="grade">
+      <mat-header-cell *matHeaderCellDef>Grade</mat-header-cell>
+      <mat-cell *matCellDef="let student">{{ student.grade }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+      <mat-cell *matCellDef="let student">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="showDetails(student, selectedClassroom)"
+        >
+          Details
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row
+      *matHeaderRowDef="['name', 'age', 'grade', 'actions']"
+    ></mat-header-row>
+    <mat-row
+      *matRowDef="let row; columns: ['name', 'age', 'grade', 'actions']"
+    ></mat-row>
+  </mat-table>
 </div>

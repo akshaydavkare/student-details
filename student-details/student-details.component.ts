@@ -1,6 +1,7 @@
-import { Component, Input,EventEmitter,Output,OnInit } from '@angular/core';
+import { Component, Input,EventEmitter,Output,OnInit, Inject } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { StudentService } from '../services/student.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-student-details',
@@ -8,22 +9,14 @@ import { StudentService } from '../services/student.service';
   templateUrl: './student-details.component.html',
   styleUrl: './student-details.component.css'
 })
-export class StudentDetailsComponent   implements OnInit{
-  constructor(private studentService: StudentService) {}
-
-  student: any = null;
-
-  @Output() close = new EventEmitter<void>();
-
-
-  ngOnInit() {
-    this.studentService.selectedStudent$.subscribe(student => {
-      this.student = student;
-    });
-  }
+export class StudentDetailsComponent   {
+  constructor(
+   private dialogRef: MatDialogRef<StudentDetailsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { student: any; classroom: any }
+  ) {}
 
   closePopup() {
-    this.close.emit();
+    this.dialogRef.close();
   }
-}
 
+}

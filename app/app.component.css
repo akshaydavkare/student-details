@@ -5,7 +5,7 @@
 
 .sidebar {
   width: 30%;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #f3f4db;
   padding: 1rem;
   overflow-y: auto;
 }
@@ -16,6 +16,6 @@
 }
 
 mat-list-item.active {
-  background: #e0f7fa;
+  background: #68ebfc;
   border-left: 4px solid #00796b;
 }
